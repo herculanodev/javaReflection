@@ -8,14 +8,15 @@ public class Transformator {
 
     public <I, O> O transform(I input) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
         Class<?> source= input.getClass();
-        Class<?> target= Class.forName(source.getClass() + "DTO");
+        Class<?> target= Class.forName(source.getName() + "DTO");
 
         O targetCLass = (O) target.getDeclaredConstructor().newInstance();
 
         Field[] sourceFields = source.getDeclaredFields();
         Field[] targetFields =  target.getDeclaredFields();
 
-        Arrays.stream(sourceFields).forEach(sourceField ->
+                Arrays.stream(sourceFields).forEach(sourceField ->
+
                 Arrays.stream(targetFields).forEach(targetField ->{
                         validate(sourceField, targetField);
                     try {
